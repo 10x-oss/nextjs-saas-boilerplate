@@ -1,0 +1,33 @@
+.dark-mode-content *[style*="background"],
+.dark-mode-content *[style*="background-color"],
+.dark-mode-content div {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.dark-mode-content *[style*="color"] {
+  color: rgb(229, 231, 235) !important;
+}
+
+.dark-mode-content table,
+.dark-mode-content td,
+.dark-mode-content th,
+.dark-mode-content tr {
+  border-color: rgb(55, 65, 81) !important;
+}
+
+.dark-mode-content a {
+  color: rgb(59, 130, 246) !important;
+}
+
+.dark-mode-content a:hover {
+  color: rgb(37, 99, 235) !important;
+}
+
+.dark-mode-content [class*="bg-white"],
+.dark-mode-content [style*="background-color: white"],
+.dark-mode-content [style*="background-color: #fff"],
+.dark-mode-content [style*="background-color: rgb(255, 255, 255)"] {
+  background-color: transparent !important;
+}
+

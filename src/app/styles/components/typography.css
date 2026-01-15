@@ -1,0 +1,72 @@
+.prose img {
+  max-width: 100%;
+  height: auto;
+  display: inline-block;
+  margin: 1rem 0;
+}
+
+.prose a {
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.prose a:hover {
+  color: #2563eb;
+}
+
+.markdown-preview {
+  line-height: 1.5;
+}
+
+.markdown-preview p,
+.markdown-preview li,
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  margin: 0;
+}
+
+.markdown-preview > * + * {
+  margin-top: 0.35em;
+}
+
+.markdown-preview h1,
+.markdown-preview h2,
+.markdown-preview h3,
+.markdown-preview h4,
+.markdown-preview h5,
+.markdown-preview h6 {
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-preview ul,
+.markdown-preview ol {
+  margin: 0.25em 0;
+  padding-left: 1.25rem;
+}
+
+.markdown-preview li + li {
+  margin-top: 0.15em;
+}
+
+.markdown-preview blockquote {
+  margin: 0.35em 0;
+  padding-left: 0.75rem;
+  border-left: 2px solid currentColor;
+  color: inherit;
+  opacity: 0.9;
+}
+
+.markdown-preview blockquote p {
+  margin: 0;
+}
+
+.markdown-preview hr {
+  margin: 0.75em 0;
+  border-color: currentColor;
+  opacity: 0.35;
+}

@@ -1,0 +1,184 @@
+[data-theme="dark"] {
+  --p: 270 100% 60%;
+  --pf: 270 100% 50%;
+  --pc: 0 0% 100%;
+  --s: 270 30% 50%;
+  --sf: 270 30% 40%;
+  --sc: 0 0% 100%;
+  --a: 270 50% 60%;
+  --af: 270 50% 50%;
+  --ac: 0 0% 100%;
+  --n: 270 10% 20%;
+  --nf: 270 10% 30%;
+  --nc: 0 0% 100%;
+  --b1: 270 20% 10%;
+  --b2: 270 20% 17%;
+  --b3: 270 20% 20%;
+  --bc: 270 10% 90%;
+
+  /* Shared app gradient for CTAs and highlights */
+  --bg-zaxis-gradient: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
+
+  /* Sticky Note Colors - Dark Mode (muted, rich tones with light text) */
+  --sn-bg-yellow: #451a03;
+  --sn-border-yellow: #78350f;
+  --sn-text-yellow: #fef3c7;
+
+  --sn-bg-orange: #431407;
+  --sn-border-orange: #7c2d12;
+  --sn-text-orange: #ffedd5;
+
+  --sn-bg-red: #450a0a;
+  --sn-border-red: #7f1d1d;
+  --sn-text-red: #fee2e2;
+
+  --sn-bg-magenta: #4a044e;
+  --sn-border-magenta: #701a75;
+  --sn-text-magenta: #f5d0fe;
+
+  --sn-bg-pink: #500724;
+  --sn-border-pink: #831843;
+  --sn-text-pink: #fce7f3;
+
+  --sn-bg-purple: #2e1065;
+  --sn-border-purple: #4c1d95;
+  --sn-text-purple: #ede9fe;
+
+  --sn-bg-violet: #2e1065;
+  --sn-border-violet: #5b21b6;
+  --sn-text-violet: #f3e8ff;
+
+  --sn-bg-indigo: #1e1b4b;
+  --sn-border-indigo: #312e81;
+  --sn-text-indigo: #e0e7ff;
+
+  --sn-bg-blue: #172554;
+  --sn-border-blue: #1e3a8a;
+  --sn-text-blue: #dbeafe;
+
+  --sn-bg-cyan: #083344;
+  --sn-border-cyan: #155e75;
+  --sn-text-cyan: #cffafe;
+
+  --sn-bg-teal: #042f2e;
+  --sn-border-teal: #115e59;
+  --sn-text-teal: #ccfbf1;
+
+  --sn-bg-green: #052e16;
+  --sn-border-green: #14532d;
+  --sn-text-green: #dcfce7;
+
+  --sn-bg-lime: #1a2e05;
+  --sn-border-lime: #365314;
+  --sn-text-lime: #ecfccb;
+
+  --sn-bg-olive: #3d4520;
+  --sn-border-olive: #5a6334;
+  --sn-text-olive: #eef2d5;
+
+  --sn-bg-brown: #44322a;
+  --sn-border-brown: #5c453a;
+  --sn-text-brown: #f5ede3;
+
+  --sn-bg-gray: #1f2937;
+  --sn-border-gray: #374151;
+  --sn-text-gray: #f3f4f6;
+
+  --sn-bg-black: #030712;
+  --sn-border-black: #1f2937;
+  --sn-text-black: #e5e7eb;
+
+  /* Shape Colors - Dark Mode (muted fills with visible borders) */
+  --shape-fill-red: #450a0a;
+  --shape-border-red: #dc2626;
+  --shape-text-red: #fee2e2;
+
+  --shape-fill-orange: #431407;
+  --shape-border-orange: #ea580c;
+  --shape-text-orange: #ffedd5;
+
+  --shape-fill-yellow: #451a03;
+  --shape-border-yellow: #ca8a04;
+  --shape-text-yellow: #fef3c7;
+
+  --shape-fill-green: #052e16;
+  --shape-border-green: #16a34a;
+  --shape-text-green: #dcfce7;
+
+  --shape-fill-blue: #172554;
+  --shape-border-blue: #2563eb;
+  --shape-text-blue: #dbeafe;
+
+  --shape-fill-purple: #2e1065;
+  --shape-border-purple: #7c3aed;
+  --shape-text-purple: #ede9fe;
+
+  --shape-fill-pink: #500724;
+  --shape-border-pink: #db2777;
+  --shape-text-pink: #fce7f3;
+
+  --shape-fill-gray: #1f2937;
+  --shape-border-gray: #9ca3af;
+  --shape-text-gray: #f3f4f6;
+
+  /* Frame Colors - Dark Mode */
+  --frame-bg-gray: rgba(75, 85, 99, 0.2);
+  --frame-border-gray: rgba(107, 114, 128, 0.6);
+  --frame-text-gray: #9ca3af;
+
+  --frame-bg-red: rgba(220, 38, 38, 0.15);
+  --frame-border-red: rgba(220, 38, 38, 0.5);
+  --frame-text-red: #fca5a5;
+
+  --frame-bg-orange: rgba(234, 88, 12, 0.15);
+  --frame-border-orange: rgba(234, 88, 12, 0.5);
+  --frame-text-orange: #fdba74;
+
+  --frame-bg-yellow: rgba(202, 138, 4, 0.15);
+  --frame-border-yellow: rgba(202, 138, 4, 0.5);
+  --frame-text-yellow: #fcd34d;
+
+  --frame-bg-green: rgba(22, 163, 74, 0.15);
+  --frame-border-green: rgba(22, 163, 74, 0.5);
+  --frame-text-green: #86efac;
+
+  --frame-bg-blue: rgba(37, 99, 235, 0.15);
+  --frame-border-blue: rgba(37, 99, 235, 0.5);
+  --frame-text-blue: #93c5fd;
+
+  --frame-bg-purple: rgba(124, 58, 237, 0.15);
+  --frame-border-purple: rgba(124, 58, 237, 0.5);
+  --frame-text-purple: #c4b5fd;
+
+  --frame-bg-pink: rgba(219, 39, 119, 0.15);
+  --frame-border-pink: rgba(219, 39, 119, 0.5);
+  --frame-text-pink: #f9a8d4;
+}
+
+[data-theme="dark"] .highlighted {
+  background-color: rgba(160, 32, 240, 0.3);
+  color: white;
+}
+
+[data-theme="dark"] .transcript-text {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+[data-theme="dark"] .embed-placeholder {
+  background-color: #374151;
+}
+
+[data-theme="dark"] img {
+  filter: none !important;
+}

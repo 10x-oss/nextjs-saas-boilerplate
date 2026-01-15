@@ -1,0 +1,49 @@
+/* Marketing page polish: typography, links, cards, buttons */
+@layer base {
+  /* Global link style: no underline, subtle color, accessible hover */
+  a,
+  .link {
+    text-decoration: none !important;
+  }
+}
+
+@layer components {
+  /* Headings rhythm */
+  .mk-heading-1 {
+    @apply text-4xl md:text-5xl font-extrabold tracking-tight;
+  }
+  .mk-heading-2 {
+    @apply text-3xl font-bold tracking-tight;
+  }
+  .mk-subtle {
+    color: hsl(var(--bc) / 0.75);
+  }
+
+  /* Accent pill/badge */
+  .mk-badge {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium;
+    background-color: hsl(var(--p) / 0.12);
+    color: hsl(var(--p));
+    border: 1px solid hsl(var(--p) / 0.25);
+  }
+
+  /* Card surface for marketing tiles */
+  .mk-card {
+    @apply rounded-xl border;
+    background-color: hsl(var(--b1) / 0.9);
+    border-color: hsl(var(--bc) / 0.08);
+    box-shadow: 0 10px 25px hsl(var(--n) / 0.08),
+      inset 0 1px 0 hsl(var(--bc) / 0.06);
+  }
+
+  /* Primary CTA */
+  .mk-cta {
+    @apply btn btn-primary rounded-lg font-semibold;
+    box-shadow: 0 10px 24px hsl(var(--p) / 0.25);
+  }
+
+  /* Ghost CTA */
+  .mk-ghost {
+    @apply btn btn-ghost rounded-lg;
+  }
+}

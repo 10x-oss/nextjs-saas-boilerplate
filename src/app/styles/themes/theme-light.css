@@ -1,0 +1,189 @@
+:root {
+  /* Primary palette stays vivid purple */
+  --p: 270 100% 50%;
+  --pf: 270 100% 40%;
+  --pc: 0 0% 100%;
+
+  /* Secondary/accent keep harmony with the purple theme */
+  --s: 270 30% 58%;
+  --sf: 270 30% 48%;
+  --sc: 0 0% 100%;
+  --a: 270 50% 66%;
+  --af: 270 50% 56%;
+  --ac: 0 0% 100%;
+
+  /* Neutral surface tones (unused often, but keep consistent) */
+  --n: 270 10% 30%;
+  --nf: 270 10% 20%;
+  --nc: 0 0% 100%;
+
+  /* Softer, purple‑tinted light surfaces (less bright) */
+  --b1: 270 28% 96%; /* page background */
+  --b2: 270 26% 94%; /* cards/panels */
+  --b3: 270 24% 90%; /* elevated surfaces */
+
+  /* Base content a touch lighter than near-black to reduce glare */
+  --bc: 270 12% 16%;
+
+  /* Shared app gradient for CTAs and highlights */
+  --bg-zaxis-gradient: linear-gradient(
+    60deg,
+    #f79533,
+    #f37055,
+    #ef4e7b,
+    #a166ab,
+    #5073b8,
+    #1098ad,
+    #07b39b,
+    #6fba82
+  );
+
+  /* Sticky Note Colors - Light Mode (soft pastels with dark text) */
+  --sn-bg-yellow: #FEF3C7;
+  --sn-border-yellow: #FDE68A;
+  --sn-text-yellow: #451a03;
+
+  --sn-bg-orange: #FFEDD5;
+  --sn-border-orange: #FED7AA;
+  --sn-text-orange: #431407;
+
+  --sn-bg-red: #FEE2E2;
+  --sn-border-red: #FCA5A5;
+  --sn-text-red: #450a0a;
+
+  --sn-bg-magenta: #F5D0FE;
+  --sn-border-magenta: #F0ABFC;
+  --sn-text-magenta: #4a044e;
+
+  --sn-bg-pink: #FCE7F3;
+  --sn-border-pink: #FBCFE8;
+  --sn-text-pink: #500724;
+
+  --sn-bg-purple: #EDE9FE;
+  --sn-border-purple: #DDD6FE;
+  --sn-text-purple: #2e1065;
+
+  --sn-bg-violet: #F3E8FF;
+  --sn-border-violet: #E9D5FF;
+  --sn-text-violet: #2e1065;
+
+  --sn-bg-indigo: #E0E7FF;
+  --sn-border-indigo: #C7D2FE;
+  --sn-text-indigo: #1e1b4b;
+
+  --sn-bg-blue: #DBEAFE;
+  --sn-border-blue: #BFDBFE;
+  --sn-text-blue: #172554;
+
+  --sn-bg-cyan: #CFFAFE;
+  --sn-border-cyan: #A5F3FC;
+  --sn-text-cyan: #083344;
+
+  --sn-bg-teal: #CCFBF1;
+  --sn-border-teal: #99F6E4;
+  --sn-text-teal: #042f2e;
+
+  --sn-bg-green: #DCFCE7;
+  --sn-border-green: #BBF7D0;
+  --sn-text-green: #052e16;
+
+  --sn-bg-lime: #ECFCCB;
+  --sn-border-lime: #D9F99D;
+  --sn-text-lime: #1a2e05;
+
+  --sn-bg-olive: #EEF2D5;
+  --sn-border-olive: #DDE3B8;
+  --sn-text-olive: #3d4520;
+
+  --sn-bg-brown: #F5EDE3;
+  --sn-border-brown: #EAD9C6;
+  --sn-text-brown: #44322a;
+
+  --sn-bg-gray: #F3F4F6;
+  --sn-border-gray: #E5E7EB;
+  --sn-text-gray: #1f2937;
+
+  --sn-bg-black: #111827;
+  --sn-border-black: #374151;
+  --sn-text-black: #f9fafb;
+
+  /* Shape Colors - Light Mode */
+  --shape-fill-red: #FEE2E2;
+  --shape-border-red: #EF4444;
+  --shape-text-red: #450a0a;
+
+  --shape-fill-orange: #FFEDD5;
+  --shape-border-orange: #F97316;
+  --shape-text-orange: #431407;
+
+  --shape-fill-yellow: #FEF3C7;
+  --shape-border-yellow: #EAB308;
+  --shape-text-yellow: #451a03;
+
+  --shape-fill-green: #DCFCE7;
+  --shape-border-green: #22C55E;
+  --shape-text-green: #052e16;
+
+  --shape-fill-blue: #DBEAFE;
+  --shape-border-blue: #3B82F6;
+  --shape-text-blue: #172554;
+
+  --shape-fill-purple: #EDE9FE;
+  --shape-border-purple: #8B5CF6;
+  --shape-text-purple: #2e1065;
+
+  --shape-fill-pink: #FCE7F3;
+  --shape-border-pink: #EC4899;
+  --shape-text-pink: #500724;
+
+  --shape-fill-gray: #F3F4F6;
+  --shape-border-gray: #6B7280;
+  --shape-text-gray: #1f2937;
+
+  /* Frame Colors - Light Mode */
+  --frame-bg-gray: rgba(156, 163, 175, 0.15);
+  --frame-border-gray: rgba(156, 163, 175, 0.6);
+  --frame-text-gray: #374151;
+
+  --frame-bg-red: rgba(239, 68, 68, 0.12);
+  --frame-border-red: rgba(239, 68, 68, 0.5);
+  --frame-text-red: #991b1b;
+
+  --frame-bg-orange: rgba(249, 115, 22, 0.12);
+  --frame-border-orange: rgba(249, 115, 22, 0.5);
+  --frame-text-orange: #9a3412;
+
+  --frame-bg-yellow: rgba(234, 179, 8, 0.12);
+  --frame-border-yellow: rgba(234, 179, 8, 0.5);
+  --frame-text-yellow: #854d0e;
+
+  --frame-bg-green: rgba(34, 197, 94, 0.12);
+  --frame-border-green: rgba(34, 197, 94, 0.5);
+  --frame-text-green: #166534;
+
+  --frame-bg-blue: rgba(59, 130, 246, 0.12);
+  --frame-border-blue: rgba(59, 130, 246, 0.5);
+  --frame-text-blue: #1e40af;
+
+  --frame-bg-purple: rgba(139, 92, 246, 0.12);
+  --frame-border-purple: rgba(139, 92, 246, 0.5);
+  --frame-text-purple: #5b21b6;
+
+  --frame-bg-pink: rgba(236, 72, 153, 0.12);
+  --frame-border-pink: rgba(236, 72, 153, 0.5);
+  --frame-text-pink: #9d174d;
+}
+
+[data-theme="light"] .highlighted {
+  background-color: rgba(128, 0, 255, 0.18);
+  color: black;
+}
+
+[data-theme="light"] .transcript-text {
+  background-color: hsl(var(--b2));
+  color: hsl(var(--bc));
+}
+
+.embed-placeholder {
+  background-color: hsl(var(--b2));
+}

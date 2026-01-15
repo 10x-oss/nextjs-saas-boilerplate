@@ -1,0 +1,110 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:boundaries/recommended"
+  ],
+  "plugins": ["@typescript-eslint", "boundaries"],
+  "settings": {
+    "boundaries/elements": [
+      {
+        "type": "app",
+        "pattern": ["src/app/*/**"]
+      },
+      {
+        "type": "feature",
+        "pattern": ["src/features/*/"],
+        "capture": ["feature"]
+      },
+      {
+        "type": "feature-internal",
+        "pattern": ["src/features/*/*/**"],
+        "capture": ["feature"]
+      },
+      {
+        "type": "shared",
+        "pattern": ["src/shared/*/**"]
+      },
+      {
+        "type": "core",
+        "pattern": ["src/core/*/**"]
+      },
+      {
+        "type": "middleware",
+        "pattern": ["src/middleware.ts"]
+      }
+    ]
+  },
+  "rules": {
+    // Boundary Rules
+    "boundaries/element-types": [
+      "error",
+      {
+        "default": "disallow",
+        "rules": [
+          {
+            "from": "feature-internal",
+            "allow": ["shared", "core", "feature-internal"]
+          },
+          {
+            "from": "app",
+            "allow": ["app", "shared", "core", "feature", "feature-internal"]
+          },
+          {
+            "from": "core",
+            "allow": ["shared", "core"]
+          },
+          {
+            "from": "shared",
+            "allow": ["shared", "core"]
+          }
+        ]
+      }
+    ],
+
+    // TypeScript Rules
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "warn",
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-non-null-assertion": "warn",
+
+    // React Rules
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "react/display-name": "off",
+
+    // Import Rules
+    "import/no-anonymous-default-export": "warn",
+
+    // General Rules
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-debugger": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.test.ts", "**/*.test.tsx"],
+      "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "no-console": "off"
+      }
+    }
+  ],
+  "ignorePatterns": [
+    "node_modules/",
+    ".next/",
+    "out/",
+    "public/",
+    "**/*.js",
+    "**/*.json",
+    "src/features/blocks/variants/document-block/**/*",
+    "src/features/blocks/variants/audio-block/**/*",
+    "src/shared/monitoring/**/*"
+  ]
+}

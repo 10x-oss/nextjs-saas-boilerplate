@@ -1,0 +1,15 @@
+# keep the dummy file out of runtime layer
+.env
+
+# ────────── Trim build context (faster + better cache hit-rate) ──────────
+.git
+node_modules
+.next
+coverage
+*.log
+Dockerfile
+docker-compose.yml
+tests
+__tests__
+__mocks__
+*.md

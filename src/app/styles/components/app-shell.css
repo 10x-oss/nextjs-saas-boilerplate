@@ -1,0 +1,113 @@
+/* App shell utilities: background patterns and glass surfaces */
+@layer utilities {
+  /* Dot grid background that adapts to theme tokens */
+  .bg-dot-grid {
+    background-color: hsl(var(--b1));
+    background-image: radial-gradient(
+      hsl(var(--bc) / 0.06) 1px,
+      transparent 1px
+    );
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+
+  [data-theme="dark"] .bg-dot-grid {
+    background-image: radial-gradient(
+      hsl(var(--bc) / 0.12) 1px,
+      transparent 1px
+    );
+  }
+
+  /* Stronger, higher-contrast dot grid for sketching */
+  .bg-dot-grid-strong {
+    background-color: hsl(var(--b1));
+    background-image: radial-gradient(
+      hsl(var(--bc) / 0.22) 1.5px,
+      transparent 1.5px
+    );
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+
+  [data-theme="dark"] .bg-dot-grid-strong {
+    background-image: radial-gradient(
+      hsl(var(--bc) / 0.32) 1.5px,
+      transparent 1.5px
+    );
+  }
+
+  /* Subtle gradient blooms at corners for depth */
+  .app-gradient::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
+    background: radial-gradient(
+        800px 500px at 12% 8%,
+        hsl(var(--p) / 0.14),
+        transparent 60%
+      ),
+      radial-gradient(
+        700px 420px at 88% 85%,
+        hsl(var(--s) / 0.1),
+        transparent 60%
+      );
+  }
+
+  /* Frosted glass surface for panels (e.g., sidebar, toolbars) */
+  .glass-panel {
+    background-color: hsl(var(--b1) / 0.72);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--bc) / 0.08);
+    box-shadow: 0 10px 30px hsl(var(--n) / 0.12),
+      inset 0 1px 0 hsl(var(--bc) / 0.06);
+  }
+
+  [data-theme="dark"] .glass-panel {
+    background-color: hsl(var(--b1) / 0.6);
+    border-color: hsl(var(--bc) / 0.12);
+    box-shadow: 0 10px 30px hsl(var(--n) / 0.35),
+      inset 0 1px 0 hsl(var(--bc) / 0.08);
+  }
+
+  /* Fine divider utility, respects theme */
+  .ui-divider {
+    border-color: hsl(var(--bc) / 0.08);
+  }
+  [data-theme="dark"] .ui-divider {
+    border-color: hsl(var(--bc) / 0.14);
+  }
+
+  /* Thin line grid for sketching */
+  .bg-sketch-grid {
+    background-color: hsl(var(--b1));
+    /* Two perpendicular 1px lines per tile */
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--bc) / 0.14) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        hsl(var(--bc) / 0.14) 1px,
+        transparent 1px
+      );
+    background-size: 22px 22px;
+    background-position: 0 0;
+  }
+
+  [data-theme="dark"] .bg-sketch-grid {
+    background-image: linear-gradient(
+        to right,
+        hsl(var(--bc) / 0.22) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        hsl(var(--bc) / 0.22) 1px,
+        transparent 1px
+      );
+  }
+}
