@@ -25,7 +25,6 @@ const nextConfig = withPWA({
       "logos-world.net",
       "img.youtube.com",
       "www.googletagmanager.com",
-      "assets.zaxis.so",
     ],
     // Consider if you really need disableStaticImages: true
     disableStaticImages: true,
@@ -69,7 +68,7 @@ const nextConfig = withPWA({
         source: "/:path*",
         headers: [
           { key: "Access-Control-Allow-Credentials", value: "true" },
-          { key: "Access-Control-Allow-Origin", value: "https://www.zaxis.so" },
+          { key: "Access-Control-Allow-Origin", value: process.env.NEXT_PUBLIC_APP_URL || "*" },
           {
             key: "Access-Control-Allow-Methods",
             value: "GET,OPTIONS,PATCH,DELETE,POST,PUT",
@@ -132,6 +131,13 @@ const nextConfig = withPWA({
   // Keep your transpilePackages setting
   transpilePackages: ["@tanstack/react-query"],
   devIndicators: false,
+
+  // Turbopack configuration (Next.js 16+ uses Turbopack by default)
+  turbopack: {
+    resolveAlias: {
+      "@": path.resolve(__dirname),
+    },
+  },
 });
 
 module.exports = nextConfig;

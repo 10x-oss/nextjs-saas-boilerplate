@@ -1,8 +1,7 @@
 /**
  * Shared helpers for configuring and displaying the Crisp chat widget.
  */
-export const CRISP_WEBSITE_ID =
-  process.env.NEXT_PUBLIC_CRISP_ID || "d7b1bc6a-eaa7-4bed-8ac1-a137ffbe4791";
+export const CRISP_WEBSITE_ID = process.env.NEXT_PUBLIC_CRISP_ID || "";
 
 const DEFAULT_ROUTES = ["/"];
 

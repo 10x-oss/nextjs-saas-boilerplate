@@ -1,18 +1,20 @@
 // src/app/api/_middleware/monitoring.ts
 import { NextResponse } from "next/server";
-import pino from "pino";
 
-// Set up Pino logger for a serverless environment by removing the transport
-const logger = pino({
-  level: process.env.LOG_LEVEL || "info",
-});
-
-// Alternatively, if you need pretty printing in development,
-// you can conditionally add the transport based on your environment:
-if (process.env.NODE_ENV === "development") {
-  // For development, use pino-pretty synchronously.
-  logger.info("Running in development mode with simplified logging");
-}
+/**
+ * Simple logger for API monitoring.
+ * Replace with your preferred logging library (pino, winston, etc.)
+ */
+const logger = {
+  info: (data: Record<string, unknown>) => {
+    if (process.env.NODE_ENV === "development") {
+      console.log("[API]", JSON.stringify(data));
+    }
+  },
+  error: (data: Record<string, unknown>) => {
+    console.error("[API Error]", JSON.stringify(data));
+  },
+};
 
 export async function withMonitoring(
   request: Request,
@@ -35,15 +37,18 @@ export async function withMonitoring(
     });
 
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
     const duration = (Date.now() - startTime) / 1000;
+    const errorMessage =
+      error instanceof Error ? error.message : "Unknown error";
+    const errorStack = error instanceof Error ? error.stack : undefined;
 
     logger.error({
       requestId,
       path: route,
       method: request.method,
-      error: error.message,
-      stack: error.stack,
+      error: errorMessage,
+      stack: errorStack,
       duration,
     });
 

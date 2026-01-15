@@ -17,7 +17,7 @@
   --bc: 270 10% 90%;
 
   /* Shared app gradient for CTAs and highlights */
-  --bg-zaxis-gradient: linear-gradient(
+  --bg-brand-gradient: linear-gradient(
     60deg,
     #f79533,
     #f37055,

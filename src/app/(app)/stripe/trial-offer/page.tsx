@@ -38,7 +38,7 @@ export default function TrialOfferPage() {
           </h1>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
             Explore every premium feature while your trial runs. When you&apos;re
-            ready to keep zAxis after day 14, pick the billing cadence that
+            ready to continue after day 14, pick the billing cadence that
             makes sense for you.
           </p>
         </div>
@@ -144,7 +144,7 @@ export default function TrialOfferPage() {
 
         <div className="text-center text-sm text-gray-500">
           <p>
-            Have questions? Reach us at support@zaxis.so and we&apos;ll help
+            Have questions? Contact our support team and we&apos;ll help
             you decide when to upgrade.
           </p>
         </div>

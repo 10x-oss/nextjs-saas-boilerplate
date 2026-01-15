@@ -44,9 +44,6 @@
       ],
       "@/src/*": [
         "./src/*"
-      ],
-      "@zaxis/protocol": [
-        "packages/protocol/index.ts"
       ]
     },
     "forceConsistentCasingInFileNames": true,

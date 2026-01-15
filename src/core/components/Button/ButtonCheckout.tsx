@@ -41,7 +41,7 @@ const ButtonCheckout = ({ priceId }) => {
       ) : (
         <CheckoutIcon />
       )}
-      Get zAxis
+      Get Started
     </button>
   );
 };

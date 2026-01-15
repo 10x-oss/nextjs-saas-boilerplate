@@ -4,14 +4,13 @@ import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { SubscriptionStatus } from "@prisma/client";
-import { EmbedResourceProvider } from "@/shared/embed/resource/EmbedResourceProvider";
 import { identifyUser } from "@/shared/analytics/posthog.client";
 import DeferThirdParties from "./DeferThirdParties";
 
 /**
  * Client-side layout component that provides a safety net polling mechanism
  * to check for subscription status changes.
- * 
+ *
  * This ensures that even long-lived tabs without navigation will eventually
  * reflect subscription status changes.
  */
@@ -61,7 +60,7 @@ export default function ClientLayout({
       try {
         // Force a session refresh
         const freshSession = await update();
-        
+
         // Check if subscription is expired/canceled and redirect if needed
         if (
           freshSession?.user?.subscriptionStatus === SubscriptionStatus.expired ||
@@ -80,9 +79,9 @@ export default function ClientLayout({
   }, [status, update, router]);
 
   return (
-    <EmbedResourceProvider>
+    <>
       <DeferThirdParties />
       {children}
-    </EmbedResourceProvider>
+    </>
   );
 }

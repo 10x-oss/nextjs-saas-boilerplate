@@ -1,6 +1,6 @@
 {
-  "name": "zAxis",
-  "short_name": "zAxis",
+  "name": "Your App",
+  "short_name": "App",
   "icons": [
     {
       "src": "/icon-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#19151F",
+  "theme_color": "#3B82F6",
   "background_color": "#FFFFFF",
   "start_url": "/",
   "display": "standalone",

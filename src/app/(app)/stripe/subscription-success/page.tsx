@@ -48,7 +48,7 @@ export default function SubscriptionSuccess() {
               </svg>
             </div>
             <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              Welcome to zAxis!
+              Welcome!
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               Your subscription is now active. We&apos;re preparing your workspace...

@@ -2,7 +2,7 @@
 
 @reference "tailwindcss"; /* Keep for core utilities applied below */
 
-/* Note: Ensure the --bg-zaxis-gradient variable is defined in :root */
+/* Note: Ensure the --bg-brand-gradient variable is defined in :root */
 
 @layer components {
   .btn-gradient {
@@ -19,7 +19,7 @@
            hover:brightness-110 /* Hover */
            focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[hsl(var(--p)/0.5)] /* Focus */
            disabled:!bg-gray-500/30 disabled:opacity-70 disabled:cursor-not-allowed /* Disabled */
-           !bg-[var(--bg-zaxis-gradient)] /* Gradient Background */
+           !bg-[var(--bg-brand-gradient)] /* Gradient Background */
            !bg-[length:200%_auto]; /* BG Size */
 
     /* Apply the animation directly using CSS */

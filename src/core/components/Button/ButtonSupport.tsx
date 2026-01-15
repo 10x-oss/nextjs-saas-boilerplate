@@ -31,7 +31,7 @@ const ButtonSupport = ({ showTextOnSmall = false }) => {
 
     if (process.env["NEXT_PUBLIC_SUPPORT_EMAIL"]) {
       window.open(
-        `mailto:${process.env["NEXT_PUBLIC_SUPPORT_EMAIL"]}?subject=Need help with ${process.env["NEXT_PUBLIC_APP_NAME"] ?? "zAxis"}`,
+        `mailto:${process.env["NEXT_PUBLIC_SUPPORT_EMAIL"]}?subject=Need help with ${process.env["NEXT_PUBLIC_APP_NAME"] ?? "Your App"}`,
         "_blank"
       );
     }

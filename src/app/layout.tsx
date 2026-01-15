@@ -4,12 +4,16 @@ import { Metadata, Viewport } from "next";
 import React from "react";
 import Script from "next/script";
 
+const appName = process.env.NEXT_PUBLIC_APP_NAME || "Your App";
+const appUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
+const appDescription = process.env.NEXT_PUBLIC_APP_DESCRIPTION ||
+  "A production-ready SaaS application built with Next.js";
+
 export const metadata: Metadata = {
-  title: "zAxis — Your infinite canvas notebook",
-  description:
-    "Connect all your apps into one place and organize your chaotic worklife on a single, living canvas.",
+  title: `${appName} — Build faster`,
+  description: appDescription,
   manifest: "/manifest.json",
-  themeColor: process.env.NEXT_PUBLIC_COLORS_MAIN,
+  themeColor: process.env.NEXT_PUBLIC_COLORS_MAIN || "#3B82F6",
   icons: {
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -21,25 +25,15 @@ export const metadata: Metadata = {
     ],
   },
   openGraph: {
-    title: "zAxis — Your infinite canvas notebook",
-    description:
-      "Connect all your apps into one place and organize your chaotic worklife on a single, living canvas.",
-    url: "https://zaxis.so",
-    siteName: "zAxis",
-    images: [
-      {
-        // Placeholder OG image until provided
-        url: "/blob-organized-transformation-sora.png",
-        width: 1200,
-        height: 630,
-      },
-    ],
+    title: `${appName} — Build faster`,
+    description: appDescription,
+    url: appUrl,
+    siteName: appName,
     locale: "en_US",
     type: "website",
   },
   other: {
-    "msapplication-TileColor": process.env.NEXT_PUBLIC_COLORS_MAIN,
-    "og:video": "https://zaxis.so/hero-demo.webm",
+    "msapplication-TileColor": process.env.NEXT_PUBLIC_COLORS_MAIN || "#3B82F6",
   },
 };
 
@@ -70,37 +64,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
-              name: "zAxis",
-              url: "https://zaxis.so",
+              name: appName,
+              url: appUrl,
               logo: "/favicon-32x32.png",
-              sameAs: ["https://twitter.com/zaxisapp"],
-            }),
-          }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Product",
-              name: "zAxis Infinite Canvas",
-              isAccessibleForFree: true,
-              offers: [
-                {
-                  "@type": "Offer",
-                  name: "Pro",
-                  price: "8",
-                  priceCurrency: "USD",
-                  category: "subscription",
-                },
-                {
-                  "@type": "Offer",
-                  name: "Business",
-                  price: "15",
-                  priceCurrency: "USD",
-                  category: "subscription",
-                },
-              ],
             }),
           }}
         />

@@ -3,9 +3,9 @@
 import localForage from "localforage";
 
 localForage.config({
-  name: "zAxis",
-  storeName: "zaxis-store",
-  description: "Persistent storage for zAxis app.",
+  name: "app-storage",
+  storeName: "app-store",
+  description: "Persistent local storage for the application.",
 });
 
 const isBrowser = typeof window !== "undefined";

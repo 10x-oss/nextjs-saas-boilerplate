@@ -39,7 +39,7 @@ export default function FullPageLoader({ label = "Loading…", className = "" }:
           <div className="absolute inset-0 flex items-center justify-center">
             <Image
               src="/favicon-32x32.png"
-              alt="zAxis logo"
+              alt="App logo"
               width={20}
               height={20}
               priority

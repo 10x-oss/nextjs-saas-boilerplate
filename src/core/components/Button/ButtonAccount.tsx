@@ -5,16 +5,8 @@ import { useState, useEffect, useRef } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { useQueryClient } from "@tanstack/react-query";
 import { axiosInstance, handleApiError } from "@/shared/utils/api.utils";
-import { useTheme } from "next-themes";
-import {
-  useGetSettings,
-  useUpdateSettings,
-} from "@/shared/query/global/useSettings";
 import {
   ChevronDownIcon,
-  RefreshIcon,
-  SunIcon,
-  MoonIcon,
   CreditCardIcon,
   SignOutIcon,
   TrashIcon,
@@ -23,11 +15,6 @@ import {
 const ButtonAccount = () => {
   const { data: session, status } = useSession();
   const queryClient = useQueryClient();
-  const { theme, setTheme } = useTheme();
-  const { data: settings } = useGetSettings();
-  const {
-    mutation: { mutateAsync: updateSettings },
-  } = useUpdateSettings();
   const [isLoading, setIsLoading] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [open, setOpen] = useState(false);

@@ -102,9 +102,6 @@
     "out/",
     "public/",
     "**/*.js",
-    "**/*.json",
-    "src/features/blocks/variants/document-block/**/*",
-    "src/features/blocks/variants/audio-block/**/*",
-    "src/shared/monitoring/**/*"
+    "**/*.json"
   ]
 }

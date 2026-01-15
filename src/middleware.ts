@@ -127,6 +127,10 @@ export async function middleware(request: NextRequest) {
         condition: isPublicRoute,
         url: "/home",
       },
+      [SubscriptionStatus.trialing]: {
+        condition: isPublicRoute,
+        url: "/home",
+      },
       [SubscriptionStatus.expired]: {
         condition: !currentPath.startsWith("/stripe/subscription-expired"),
         url: "/stripe/subscription-expired",
@@ -140,6 +144,18 @@ export async function middleware(request: NextRequest) {
         url: "/stripe/subscription-expired",
       },
       [SubscriptionStatus.incomplete]: {
+        condition: !currentPath.startsWith("/stripe/subscription-expired"),
+        url: "/stripe/subscription-expired",
+      },
+      [SubscriptionStatus.incomplete_expired]: {
+        condition: !currentPath.startsWith("/stripe/subscription-expired"),
+        url: "/stripe/subscription-expired",
+      },
+      [SubscriptionStatus.paused]: {
+        condition: !currentPath.startsWith("/stripe/subscription-expired"),
+        url: "/stripe/subscription-expired",
+      },
+      [SubscriptionStatus.unpaid]: {
         condition: !currentPath.startsWith("/stripe/subscription-expired"),
         url: "/stripe/subscription-expired",
       },
