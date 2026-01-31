@@ -1,4 +1,5 @@
 // src/shared/auth/authOptions.ts
+import "server-only";
 
 import { AuthOptions } from "next-auth";
 import type { Adapter } from "next-auth/adapters";
@@ -86,8 +87,8 @@ const authOptions: AuthOptions = {
   // ──────────────────────────────────── Providers ──────────────────────────────
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
+      clientId: process.env.GOOGLE_CLIENT_ID!,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
           prompt: "select_account",
