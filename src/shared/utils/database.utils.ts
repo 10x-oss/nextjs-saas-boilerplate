@@ -1,13 +1,46 @@
 import { PrismaClient } from "@prisma/client";
+import { Pool, neonConfig } from "@neondatabase/serverless";
+import { PrismaNeon } from "@prisma/adapter-neon";
 
-// PrismaClient is attached to the `global` object in development to prevent
-// exhausting your database connection limit.
-const globalForPrisma = global;
-
-if (!globalForPrisma.prisma) {
-  globalForPrisma.prisma = new PrismaClient();
+// Enable WebSocket for environments that need it (local dev with Node < 22)
+// Node 22+ has native WebSocket support
+if (typeof globalThis.WebSocket === "undefined") {
+  // Only import ws if WebSocket is not available
+  import("ws").then((ws) => {
+    neonConfig.webSocketConstructor = ws.default;
+  });
 }
 
-const prisma = globalForPrisma.prisma;
+// Type the global object for development caching
+const globalForPrisma = globalThis as unknown as {
+  prisma: PrismaClient | undefined;
+};
+
+function createPrismaClient(): PrismaClient {
+  // Use Neon serverless driver for optimal performance on Vercel
+  const connectionString = process.env.DATABASE_URL;
+
+  if (!connectionString) {
+    throw new Error("DATABASE_URL environment variable is not set");
+  }
+
+  const pool = new Pool({ connectionString });
+  const adapter = new PrismaNeon(pool);
+
+  return new PrismaClient({
+    adapter,
+    log:
+      process.env.NODE_ENV === "development"
+        ? ["query", "error", "warn"]
+        : ["error"],
+  });
+}
+
+// Reuse client in development to prevent connection exhaustion during hot reload
+const prisma = globalForPrisma.prisma ?? createPrismaClient();
+
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
+}
 
 export default prisma;

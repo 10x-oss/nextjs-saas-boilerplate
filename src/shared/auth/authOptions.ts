@@ -23,7 +23,6 @@ function createSafeAdapter(): Adapter {
     ...baseAdapter,
     // Override linkAccount to clean up orphaned users before linking
     async linkAccount(account) {
-      console.log("[Auth] linkAccount started for user:", account.userId);
       // First, check if user exists but has no accounts (orphaned)
       const existingUser = await prisma.user.findUnique({
         where: { id: account.userId },
@@ -32,16 +31,14 @@ function createSafeAdapter(): Adapter {
 
       // If user exists with no accounts, they're orphaned from a previous failed attempt
       // The base adapter will handle creating the account link
-      if (existingUser && existingUser.accounts.length === 0) {
+      if (process.env.NODE_ENV === "development" && existingUser && existingUser.accounts.length === 0) {
         console.log(
           `[Auth] User ${account.userId} has no linked accounts, proceeding with account link`
         );
       }
 
       // Call the original linkAccount
-      console.log("[Auth] Calling base linkAccount...");
       const result = await baseAdapter.linkAccount!(account);
-      console.log("[Auth] linkAccount complete");
       return result;
     },
 
@@ -107,21 +104,19 @@ const authOptions: AuthOptions = {
   // ──────────────────────────────────── Events ─────────────────────────────────
   events: {
     async createUser({ user }) {
-      console.log("[Auth] createUser event started for:", user.email);
-      const stripe = getStripe();
-      console.log("[Auth] Stripe instance obtained");
+      const isDev = process.env.NODE_ENV === "development";
+      if (isDev) console.log("[Auth] createUser event started for:", user.email);
 
+      const stripe = getStripe();
       const email = user.email ?? undefined;
       const displayName = user.name || email?.split("@")[0] || "";
 
       let customer = null;
       if (email) {
-        console.log("[Auth] Searching for existing Stripe customer...");
         const existing = await stripe.customers.list({
           email,
           limit: 1,
         });
-        console.log("[Auth] Stripe customer search complete");
         const activeCustomer = existing.data.find(
           (entry): entry is Stripe.Customer =>
             !("deleted" in entry)
@@ -130,25 +125,21 @@ const authOptions: AuthOptions = {
       }
 
       if (!customer) {
-        console.log("[Auth] Creating new Stripe customer...");
         customer = await stripe.customers.create({
           email,
           name: displayName,
           metadata: { internalUserId: user.id },
         });
-        console.log("[Auth] Stripe customer created:", customer.id);
+        if (isDev) console.log("[Auth] Stripe customer created:", customer.id);
       } else if (!customer.metadata?.internalUserId) {
-        console.log("[Auth] Updating existing Stripe customer...");
         await stripe.customers.update(customer.id, {
           metadata: {
             ...customer.metadata,
             internalUserId: customer.metadata?.internalUserId ?? user.id,
           },
         });
-        console.log("[Auth] Stripe customer updated");
       }
 
-      console.log("[Auth] Updating user in database...");
       await prisma.user.update({
         where: { id: user.id },
         data: {
@@ -161,7 +152,6 @@ const authOptions: AuthOptions = {
           priceId: null,
         },
       });
-      console.log("[Auth] User updated in database");
 
       // Fire and forget analytics - don't await, don't block auth flow
       // Using setTimeout to ensure this doesn't block the OAuth callback
@@ -181,7 +171,7 @@ const authOptions: AuthOptions = {
         }
       }, 0);
 
-      console.log("[Auth] createUser event COMPLETE");
+      if (isDev) console.log("[Auth] createUser event complete");
     },
   },
 
@@ -189,26 +179,26 @@ const authOptions: AuthOptions = {
   callbacks: {
     /**
      * JWT callback
-     * – enriches token with DB info on sign-in or when data is missing
-     * – use `trigger: "update"` to force refresh (e.g., after subscription change)
+     * – Enriches token with DB info on sign-in or explicit update
+     * – Stores ALL session data in the token to avoid DB queries in session callback
+     * – Use `trigger: "update"` to force refresh (e.g., after subscription change)
      */
-    async jwt({ token, user, account, trigger }) {
-      // On sign‑in or sign‑up, attach user info and fetch from DB
+    async jwt({ token, user, trigger }) {
       const isSignIn = !!user;
-      // Check if token is missing required fields (needs DB fetch)
-      const needsDbFetch = token.sub && (!token.uuid || token.subscriptionStatus === undefined);
-      // Also refresh on explicit update trigger (e.g., after subscription change)
       const isUpdate = trigger === "update";
+      // Only fetch from DB when we need fresh data
+      const needsDbFetch = token.sub && (!token.subscriptionStatus || isSignIn || isUpdate);
 
       if (user) {
         token.sub = user.id;
         token.id = user.id;
         if (user.email) token.email = user.email;
+        if (user.name) token.name = user.name;
+        if (user.image) token.picture = user.image;
       }
 
-      // Only fetch from DB on sign-in, missing data, or explicit update
-      if (token.sub && (isSignIn || needsDbFetch || isUpdate)) {
-        console.log("[Auth] JWT: fetching user from DB (reason:", isSignIn ? "sign-in" : isUpdate ? "update" : "missing-data", ")");
+      // Fetch all session data from DB only on sign-in or explicit update
+      if (token.sub && needsDbFetch) {
         const dbUser = await prisma.user.findUnique({
           where: { id: token.sub },
           select: {
@@ -216,13 +206,22 @@ const authOptions: AuthOptions = {
             subscriptionStatus: true,
             email: true,
             hasLifetimeAccess: true,
+            onboardingCompleted: true,
+            name: true,
+            image: true,
+            createdAt: true,
           },
         });
+
         if (dbUser) {
           token.uuid = dbUser.uuid;
           token.subscriptionStatus = dbUser.subscriptionStatus;
           token.hasLifetimeAccess = dbUser.hasLifetimeAccess;
-          if (!token.email && dbUser.email) token.email = dbUser.email;
+          token.onboardingCompleted = dbUser.onboardingCompleted;
+          token.createdAt = dbUser.createdAt?.toISOString() ?? null;
+          if (dbUser.email) token.email = dbUser.email;
+          if (dbUser.name) token.name = dbUser.name;
+          if (dbUser.image) token.picture = dbUser.image;
         }
       }
 
@@ -231,79 +230,27 @@ const authOptions: AuthOptions = {
 
     /**
      * Session callback
-     * – Expose non‑sensitive fields to the client
+     * – NEVER queries the database - uses only token data for performance
+     * – All data should be stored in JWT via the jwt callback above
      */
-    async session({ session, token }) {
-      const userId = token.sub || token.id;
+    session({ session, token }) {
+      const userId = token.sub || (token.id as string);
       if (!userId) throw new Error("No user ID in token");
 
-      const dbUser = await prisma.user.findUnique({
-        where: { id: userId },
-        select: {
-          subscriptionStatus: true,
-          customerId: true,
-          onboardingCompleted: true,
-          hasLifetimeAccess: true,
-          name: true,
-          image: true,
-          uuid: true,
-          email: true,
-          priceId: true,
-          createdAt: true,
-        },
-      });
-      if (!dbUser) throw new Error("Invalid user state");
-
-      let customerId = dbUser.customerId;
-      if (!customerId) {
-        const stripe = getStripe();
-        const email = dbUser.email || (token.email as string | undefined);
-        let customer: Stripe.Customer | null = null;
-
-        if (email) {
-          const existing = await stripe.customers.list({ email, limit: 1 });
-          const activeCustomer = existing.data.find(
-            (entry): entry is Stripe.Customer => !("deleted" in entry)
-          );
-          customer = activeCustomer ?? null;
-        }
-
-        if (!customer) {
-          customer = await stripe.customers.create({
-            email,
-            metadata: { internalUserId: userId as string },
-          });
-        } else if (!customer.metadata?.internalUserId) {
-          await stripe.customers.update(customer.id, {
-            metadata: {
-              ...customer.metadata,
-              internalUserId: customer.metadata?.internalUserId ?? (userId as string),
-            },
-          });
-        }
-
-        await prisma.user.update({
-          where: { id: userId },
-          data: { customerId: customer.id },
-        });
-
-        customerId = customer.id;
-      }
+      const subscriptionStatus = (token.subscriptionStatus as string) ?? "new";
+      const hasLifetimeAccess = (token.hasLifetimeAccess as boolean) ?? false;
 
       session.user = {
-        id: userId as string,
-        name: dbUser.name,
-        image: dbUser.image,
-        subscriptionStatus: dbUser.subscriptionStatus,
-        uuid: dbUser.uuid,
-        onboardingCompleted: dbUser.onboardingCompleted,
-        hasLifetimeAccess: dbUser.hasLifetimeAccess,
-        email: dbUser.email ?? (token.email as string | undefined) ?? null,
-        plan:
-          dbUser.hasLifetimeAccess || dbUser.subscriptionStatus === "active"
-            ? "paid"
-            : "free",
-        createdAt: dbUser.createdAt?.toISOString() ?? null,
+        id: userId,
+        name: (token.name as string) ?? null,
+        image: (token.picture as string) ?? null,
+        email: (token.email as string) ?? null,
+        uuid: (token.uuid as string) ?? null,
+        subscriptionStatus,
+        hasLifetimeAccess,
+        onboardingCompleted: (token.onboardingCompleted as boolean) ?? false,
+        plan: hasLifetimeAccess || subscriptionStatus === "active" ? "paid" : "free",
+        createdAt: (token.createdAt as string) ?? null,
       };
 
       return session;
