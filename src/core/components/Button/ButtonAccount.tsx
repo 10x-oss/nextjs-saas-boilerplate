@@ -373,7 +373,14 @@ const ButtonAccount = () => {
   );
 };
 
-const AccountAction = ({ icon, label, onClick, className }) => (
+interface AccountActionProps {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void | Promise<void>;
+  className: string;
+}
+
+const AccountAction = ({ icon, label, onClick, className }: AccountActionProps) => (
   <button
     type="button"
     title="Account Action"

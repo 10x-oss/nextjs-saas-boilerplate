@@ -6,17 +6,21 @@ import { ArrowRightIcon } from "@/shared/svgs";
 import { axiosInstance, handleApiError } from "@/shared/utils/api.utils";
 import { logEvent } from "@/shared/utils/analytics";
 
+interface ButtonLeadProps {
+  extraStyle?: string;
+}
+
 // This component is used to collect the emails from the landing page
 // You'd use this if your product isn't ready yet or you want to collect leads
 // For instance: A popup to send a freebie, joining a waitlist, etc.
 // It calls the /api/lead route and store a Lead document in the database
-const ButtonLead = ({ extraStyle }) => {
+const ButtonLead = ({ extraStyle }: ButtonLeadProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [email, setEmail] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();
 
     setIsLoading(true);

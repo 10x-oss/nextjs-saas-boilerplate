@@ -85,13 +85,15 @@ export function withMiddleware(
       // Add caching if specified
       if (options.cache) {
         const cachedHandler = currentHandler;
+        const cacheOpts = options.cache;
         currentHandler = () =>
           withCache(request, cachedHandler, {
-            ...options.cache,
-            keyGenerator: options.cache.keyGenerator
-              ? (req: NextRequest) =>
-                  options.cache!.keyGenerator!(
-                    req,
+            ttl: cacheOpts.ttl,
+            shouldCache: cacheOpts.shouldCache as ((req: Request) => boolean) | undefined,
+            keyGenerator: cacheOpts.keyGenerator
+              ? (req: Request) =>
+                  cacheOpts.keyGenerator!(
+                    req as NextRequest,
                     resolvedHandlerContext?.params
                   )
               : undefined,

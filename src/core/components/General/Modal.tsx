@@ -1,9 +1,13 @@
 "use client";
 
-import { Fragment } from "react";
 import { CloseIcon } from "@/shared/svgs";
 
-const Modal = ({ isModalOpen, setIsModalOpen }) => {
+interface ModalProps {
+  isModalOpen: boolean;
+  setIsModalOpen: (open: boolean) => void;
+}
+
+const Modal = ({ isModalOpen, setIsModalOpen }: ModalProps) => {
   if (!isModalOpen) return null;
 
   return (

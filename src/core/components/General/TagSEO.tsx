@@ -1,7 +1,23 @@
 "use client";
 
 import Head from "next/head";
-import PropTypes from "prop-types";
+import React from "react";
+
+interface OpenGraphProps {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+}
+
+interface TagSEOProps {
+  children?: React.ReactNode;
+  title?: string;
+  description?: string;
+  keywords?: string;
+  og?: OpenGraphProps;
+  canonicalSlug: string;
+}
 
 // Predefined SEO tags — prefilled with default values but you can customize them for each page
 // This let you add default SEO tags to all pages, like /terms, /privacy, without rewrtting them all
@@ -27,7 +43,7 @@ const TagSEO = ({
   keywords,
   og,
   canonicalSlug,
-}) => {
+}: TagSEOProps) => {
   return (
     <Head>
       {/* TITLE */}
@@ -75,7 +91,3 @@ const TagSEO = ({
 };
 
 export default TagSEO;
-
-TagSEO.propTypes = {
-  canonicalSlug: PropTypes.string.isRequired,
-};

@@ -51,7 +51,7 @@ export async function withValidation<T extends object>(
   options: ValidationOptions = {}
 ): Promise<Response> {
   try {
-    let dataToValidate: unknown = {};
+    let dataToValidate: Record<string, unknown> = {};
 
     // Determine if we should parse body based on method
     const method = request.method.toUpperCase();

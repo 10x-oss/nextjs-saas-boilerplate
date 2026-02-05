@@ -149,7 +149,7 @@ export const GET = withMiddleware(async (request: NextRequest) => {
 
         if (customerSubscriptions.data.length > 0) {
           // Use the found subscription
-          const subscription = customerSubscriptions.data[0];
+          const subscription = customerSubscriptions.data[0]!;
 
           // Update the user record with active status - only using fields that exist in schema
           await prisma.user.update({

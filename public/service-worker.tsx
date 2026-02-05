@@ -30,9 +30,11 @@ export function ServiceWorkerRegistration() {
 
     // Add Google Analytics route change tracking
     const handleRouteChange = (url: string) => {
-      window.gtag("config", "G-WR4JBV6D74", {
-        page_path: url,
-      });
+      if (typeof window.gtag === "function") {
+        window.gtag("config", "G-WR4JBV6D74", {
+          page_path: url,
+        });
+      }
     };
 
     // Track initial page load

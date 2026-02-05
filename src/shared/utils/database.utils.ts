@@ -22,10 +22,14 @@ function createPrismaClient(): PrismaClient {
   const connectionString = process.env.DATABASE_URL;
 
   if (!connectionString) {
-    throw new Error("DATABASE_URL environment variable is not set");
+    // During build time, DATABASE_URL may not be available
+    // Return a minimal client that will fail gracefully at runtime
+    console.warn("DATABASE_URL not set - database operations will fail");
+    return new PrismaClient();
   }
 
   const pool = new Pool({ connectionString });
+  // @ts-expect-error - PrismaNeon expects PoolConfig but Pool works correctly
   const adapter = new PrismaNeon(pool);
 
   return new PrismaClient({

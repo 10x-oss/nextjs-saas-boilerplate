@@ -7,7 +7,12 @@ import { toast } from "@/shared/toast";
 import Image from "next/image";
 import { logEvent } from "@/shared/utils/analytics";
 
-const ButtonSignin = ({ text = "Join the Beta", extraStyle }) => {
+interface ButtonSigninProps {
+  text?: string;
+  extraStyle?: string;
+}
+
+const ButtonSignin = ({ text = "Join the Beta", extraStyle }: ButtonSigninProps) => {
   const router = useRouter();
   const { data: session, status } = useSession();
   const isLoading = status === "loading";

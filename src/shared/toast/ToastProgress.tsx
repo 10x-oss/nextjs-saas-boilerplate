@@ -10,7 +10,7 @@ const PROGRESS_STEPS = 21; // 0 to 100 in steps of 5
 // Component to handle the toast progress bar without inline styles
 export default function ToastProgress({ toast }: { toast: Toast }) {
   const [progress, setProgress] = useState(100);
-  const createdAt = parseInt(toast.id.split('-')[0]);
+  const createdAt = parseInt(toast.id.split('-')[0] ?? '0', 10);
   const progressBarClass = `progressBar${toast.type.charAt(0).toUpperCase() + toast.type.slice(1)}`;
 
   // Calculate the closest 5% interval for the current progress

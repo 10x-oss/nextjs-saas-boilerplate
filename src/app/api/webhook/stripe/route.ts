@@ -17,11 +17,8 @@ type CheckoutSessionWithExpanded = Stripe.Checkout.Session & {
   };
 };
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+// Note: In Next.js App Router, body parsing is handled automatically.
+// The raw body is accessed via request.arrayBuffer() in the POST handler below.
 
 export const POST = async (request: NextRequest) => {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -30,6 +27,14 @@ export const POST = async (request: NextRequest) => {
 
   // ✅ Correct way to access headers with NextRequest
   const signature = request.headers.get("stripe-signature");
+
+  if (!signature || !webhookSecret) {
+    console.error("Missing stripe-signature header or webhook secret");
+    return NextResponse.json(
+      { error: "Missing stripe-signature header or webhook secret" },
+      { status: 400 }
+    );
+  }
 
   // ✅ Correctly fetch the raw body (crucial!)
   const bodyBuffer = await request.arrayBuffer();
@@ -63,34 +68,34 @@ export const POST = async (request: NextRequest) => {
   try {
     switch (event.type) {
       case "customer.subscription.created":
-        await handleSubscriptionCreated(data);
+        await handleSubscriptionCreated(data as Stripe.Subscription);
         break;
       case "customer.subscription.updated":
-        await handleSubscriptionUpdated(data);
+        await handleSubscriptionUpdated(data as Stripe.Subscription);
         break;
       case "customer.subscription.deleted":
-        await handleSubscriptionDeleted(data);
+        await handleSubscriptionDeleted(data as Stripe.Subscription);
         break;
       case "customer.subscription.paused":
-        await handleSubscriptionPaused(data);
+        await handleSubscriptionPaused(data as Stripe.Subscription);
         break;
       case "customer.subscription.resumed":
-        await handleSubscriptionResumed(data);
+        await handleSubscriptionResumed(data as Stripe.Subscription);
         break;
       case "checkout.session.completed":
-        await handleCheckoutSessionCompleted(data);
+        await handleCheckoutSessionCompleted(data as Stripe.Checkout.Session);
         break;
       case "invoice.payment_succeeded":
-        await handleInvoicePaymentSucceeded(data);
+        await handleInvoicePaymentSucceeded(data as Stripe.Invoice);
         break;
       case "invoice.payment_failed":
-        await handleInvoicePaymentFailed(data);
+        await handleInvoicePaymentFailed(data as Stripe.Invoice);
         break;
       case "invoice.finalized":
-        await handleInvoiceFinalized(data);
+        await handleInvoiceFinalized(data as Stripe.Invoice);
         break;
       case "customer.subscription.trial_will_end":
-        console.log("Trial ending soon for sub:", data.id);
+        console.log("Trial ending soon for sub:", (data as Stripe.Subscription).id);
         break;
       default:
         console.log(`Unhandled event type: ${event.type}`);
@@ -124,11 +129,29 @@ export const POST = async (request: NextRequest) => {
   }
 };
 
+import { SubscriptionStatus } from "@prisma/client";
+
+// Helper to map Stripe status to our Prisma enum
+function mapStripeStatusToPrisma(status: Stripe.Subscription.Status): SubscriptionStatus {
+  // Map Stripe statuses to our Prisma enum values
+  const statusMap: Record<Stripe.Subscription.Status, SubscriptionStatus> = {
+    active: "active",
+    canceled: "canceled",
+    incomplete: "incomplete",
+    incomplete_expired: "incomplete_expired",
+    past_due: "past_due",
+    paused: "expired", // We map 'paused' to 'expired' since our enum doesn't have 'paused'
+    trialing: "trialing",
+    unpaid: "unpaid",
+  };
+  return statusMap[status] ?? "new";
+}
+
 async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   console.log("Processing subscription created:", subscription.id);
   const firstItem = subscription.items?.data?.[0];
   const updateData = {
-    subscriptionStatus: subscription.status,
+    subscriptionStatus: mapStripeStatusToPrisma(subscription.status),
     subscriptionId: subscription.id,
     priceId: firstItem?.price?.id ?? null,
   };
@@ -152,7 +175,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
     const user = await prisma.user.update({
       where: { customerId: subscription.customer as string },
       data: {
-        subscriptionStatus: subscription.status,
+        subscriptionStatus: mapStripeStatusToPrisma(subscription.status),
         priceId: firstItem?.price?.id ?? null,
       },
     });
@@ -213,7 +236,7 @@ async function handleSubscriptionResumed(subscription: Stripe.Subscription) {
     await prisma.user.update({
       where: { customerId: subscription.customer as string },
       data: {
-        subscriptionStatus: subscription.status,
+        subscriptionStatus: mapStripeStatusToPrisma(subscription.status),
       },
     });
     console.log(`Subscription resumed for customer: ${subscription.customer}`);
@@ -324,7 +347,7 @@ async function handleInvoicePaymentSucceeded(invoice: Stripe.Invoice) {
     const user = await prisma.user.update({
       where: { customerId: invoice.customer as string },
       data: {
-        subscriptionStatus: subscription?.status ?? "active",
+        subscriptionStatus: subscription ? mapStripeStatusToPrisma(subscription.status) : "active",
       },
     });
     console.log(`Payment succeeded for customer: ${invoice.customer}`);
@@ -355,7 +378,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
     await prisma.user.update({
       where: { customerId: invoice.customer as string },
       data: {
-        subscriptionStatus: subscription?.status ?? "past_due",
+        subscriptionStatus: subscription ? mapStripeStatusToPrisma(subscription.status) : "past_due",
       },
     });
     console.log(`Payment failed for customer: ${invoice.customer}`);
@@ -365,7 +388,7 @@ async function handleInvoicePaymentFailed(invoice: Stripe.Invoice) {
   // NOTE: See comment in handleCheckoutSessionCompleted regarding dual write paths.
 }
 
-async function handleInvoiceFinalized(invoice) {
+async function handleInvoiceFinalized(invoice: Stripe.Invoice) {
   console.log("Processing invoice finalized:", invoice.id);
   try {
     await prisma.user.update({

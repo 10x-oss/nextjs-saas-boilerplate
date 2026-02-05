@@ -4,10 +4,14 @@ import { useState } from "react";
 import { axiosInstance, handleApiError } from "@/shared/utils/api.utils";
 import { CheckoutIcon } from "@/shared/svgs";
 
+interface ButtonCheckoutProps {
+  priceId: string;
+}
+
 // This component is used to create Stripe Checkout Sessions
 // It calls the /api/stripe/create-checkout-session route with the priceId, successUrl and cancelUrl
 // It assumes the user is logged in but you can remove this logic on the API route
-const ButtonCheckout = ({ priceId }) => {
+const ButtonCheckout = ({ priceId }: ButtonCheckoutProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePayment = async () => {

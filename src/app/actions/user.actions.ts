@@ -60,8 +60,8 @@ export async function updateUserSettings(
     // 2. Validate input
     const parseResult = updateUserSettingsSchema.safeParse(input);
     if (!parseResult.success) {
-      const errorMessage = parseResult.error.errors
-        .map((err: { message: string }) => err.message)
+      const errorMessage = parseResult.error.issues
+        .map((issue) => issue.message)
         .join(", ");
       return { success: false, error: errorMessage };
     }

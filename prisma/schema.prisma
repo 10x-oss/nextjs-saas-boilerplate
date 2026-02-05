@@ -71,6 +71,13 @@ model User {
   trialStartDate     DateTime?
   hasLifetimeAccess  Boolean            @default(false)
 
+  // Onboarding & additional tracking
+  uuid                String?   @unique @default(cuid())
+  onboardingCompleted Boolean   @default(false)
+  subscribedAt        DateTime?
+  subscriptionEndDate DateTime?
+  paymentFingerprint  String?   @unique
+
   // Relations
   accounts      Account[]
   sessions      Session[]
@@ -88,6 +95,9 @@ enum SubscriptionStatus {
   canceled
   expired
   incomplete
+  incomplete_expired
+  trialing
+  unpaid
 }
 
 // ============================================================================

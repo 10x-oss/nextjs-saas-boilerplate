@@ -23,7 +23,7 @@ function createSafeAdapter(): Adapter {
   return {
     ...baseAdapter,
     // Override linkAccount to clean up orphaned users before linking
-    async linkAccount(account) {
+    async linkAccount(account: Parameters<NonNullable<typeof baseAdapter.linkAccount>>[0]) {
       // First, check if user exists but has no accounts (orphaned)
       const existingUser = await prisma.user.findUnique({
         where: { id: account.userId },

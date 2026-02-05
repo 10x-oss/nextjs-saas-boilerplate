@@ -16,10 +16,8 @@ const nextConfig: NextConfig = {
   // Recommendation: Enable React Strict Mode to help catch potential issues
   reactStrictMode: true,
 
-  // Enable Partial Prerendering for hybrid static/dynamic pages
-  experimental: {
-    ppr: true,
-  },
+  // Partial Prerendering (ppr) was merged into cacheComponents in Next.js 16
+  // Disabled for now as it conflicts with dynamic/revalidate route segment configs
 
   typescript: {
     ignoreBuildErrors: false,

@@ -70,7 +70,7 @@ export function Providers({ children, session }: ProvidersProps) {
         >
           <SessionKeyBridge
             onChange={(key) =>
-              setSessionKey((prev) => (prev === key ? prev : key))
+              setSessionKey((prev: string) => (prev === key ? prev : key))
             }
           />
           <GlobalLayout>{children}</GlobalLayout>

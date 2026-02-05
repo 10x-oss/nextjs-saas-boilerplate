@@ -1,6 +1,15 @@
 import React from "react";
 
-export const CloseIcon = ({ className = "" }) => (
+interface IconProps {
+  className?: string;
+}
+
+interface SizedIconProps extends IconProps {
+  size?: number;
+  strokeWidth?: number;
+}
+
+export const CloseIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
@@ -17,7 +26,7 @@ export const CloseIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const LoadingIcon = ({ className = "" }) => (
+export const LoadingIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-8 h-8 animate-spin ${className}`}
     fill="currentColor"
@@ -27,13 +36,13 @@ export const LoadingIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const LoadingSpinnerIcon = ({ className = "" }) => (
+export const LoadingSpinnerIcon = ({ className = "" }: IconProps) => (
   <div className={`flex items-center justify-center ${className}`}>
     <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-primary" />
   </div>
 );
 
-export const PauseIcon = ({ className = "" }) => (
+export const PauseIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-6 h-6 ${className}`}
     fill="currentColor"
@@ -47,7 +56,7 @@ export const PauseIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const PlayIcon = ({ className = "" }) => (
+export const PlayIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-6 h-6 ${className}`}
     fill="currentColor"
@@ -61,7 +70,7 @@ export const PlayIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const SyncIcon = ({ className = "" }) => (
+export const SyncIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-5 h-5 ${className}`}
     fill="none"
@@ -77,7 +86,7 @@ export const SyncIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const ChevronDownIcon = ({ className = "" }) => (
+export const ChevronDownIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
@@ -92,7 +101,7 @@ export const ChevronDownIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const SunIcon = ({ className = "" }) => (
+export const SunIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -109,7 +118,7 @@ export const SunIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const MoonIcon = ({ className = "" }) => (
+export const MoonIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -126,7 +135,7 @@ export const MoonIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const CreditCardIcon = ({ className = "" }) => (
+export const CreditCardIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -143,7 +152,7 @@ export const CreditCardIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const SignOutIcon = ({ className = "" }) => (
+export const SignOutIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -160,7 +169,7 @@ export const SignOutIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const BackArrowIcon = ({ className = "" }) => (
+export const BackArrowIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
@@ -175,7 +184,7 @@ export const BackArrowIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const HomeIcon = ({ className = "" }) => (
+export const HomeIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
@@ -190,7 +199,7 @@ export const HomeIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const RefreshIcon = ({ className = "" }) => (
+export const RefreshIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
@@ -205,7 +214,7 @@ export const RefreshIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const FolderIcon = ({ className = "" }) => (
+export const FolderIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
@@ -222,7 +231,7 @@ export const FolderIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const PageIcon = ({ className = "" }) => (
+export const PageIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-6 w-6 ${className}`}
@@ -239,7 +248,7 @@ export const PageIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const DocumentIcon = ({ className = "" }) => (
+export const DocumentIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={className}
@@ -256,7 +265,7 @@ export const DocumentIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const AudioIcon = ({ className = "" }) => (
+export const AudioIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-4 w-4 ${className}`}
@@ -271,7 +280,7 @@ export const AudioIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const YouTubeIcon = ({ className = "" }) => (
+export const YouTubeIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-6 h-6 ${className}`}
     fill="currentColor"
@@ -282,7 +291,7 @@ export const YouTubeIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const RssIcon = ({ className = "" }) => (
+export const RssIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-4 h-4 text-orange-600 ${className}`}
     fill="currentColor"
@@ -293,7 +302,7 @@ export const RssIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const ContentIcon = ({ className = "" }) => (
+export const ContentIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-4 w-4 ${className}`}
@@ -313,7 +322,7 @@ export const ContentIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const ArrowRightIcon = ({ className = "" }) => (
+export const ArrowRightIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-4 w-4 ${className}`}
@@ -328,7 +337,7 @@ export const ArrowRightIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const ArrowDropDownIcon = ({ className = "" }) => (
+export const ArrowDropDownIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-4 w-4 ${className}`}
@@ -343,7 +352,7 @@ export const ArrowDropDownIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const FeedIcon = ({ className = "" }) => (
+export const FeedIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-6 w-6 ${className}`}
@@ -360,7 +369,7 @@ export const FeedIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const ActivityIcon = ({ className = "" }) => (
+export const ActivityIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className={`h-6 w-6 ${className}`}
@@ -377,7 +386,7 @@ export const ActivityIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const CheckIcon = ({ className = "" }) => (
+export const CheckIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
@@ -392,7 +401,7 @@ export const CheckIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const EmailIcon = ({ className = "" }) => (
+export const EmailIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -408,7 +417,7 @@ export const EmailIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const SEOIcon = ({ className = "" }) => (
+export const SEOIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -425,7 +434,7 @@ export const SEOIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const StyleIcon = ({ className = "" }) => (
+export const StyleIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -442,7 +451,7 @@ export const StyleIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const PaymentIcon = ({ className = "" }) => (
+export const PaymentIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -459,7 +468,7 @@ export const PaymentIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const LoginIcon = ({ className = "" }) => (
+export const LoginIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -476,7 +485,7 @@ export const LoginIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const DatabaseIcon = ({ className = "" }) => (
+export const DatabaseIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -493,7 +502,7 @@ export const DatabaseIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const CheckoutIcon = ({ className = "" }) => (
+export const CheckoutIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-5 h-5 fill-primary-content group-hover:scale-110 group-hover:-rotate-3 transition-transform duration-200 ${className}`}
     viewBox="0 0 375 509"
@@ -504,7 +513,7 @@ export const CheckoutIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const FireIcon = ({ className = "" }) => (
+export const FireIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -526,7 +535,7 @@ export const FireIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const GiftIcon = ({ className = "" }) => (
+export const GiftIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -543,7 +552,7 @@ export const GiftIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const AcademicCapIcon = ({ className = "" }) => (
+export const AcademicCapIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -560,7 +569,7 @@ export const AcademicCapIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const ChevronLeft = ({ size = 20, strokeWidth = 3, className = "" }) => (
+export const ChevronLeft = ({ size = 20, strokeWidth = 3, className = "" }: SizedIconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -581,7 +590,7 @@ export const ChevronRight = ({
   size = 20,
   strokeWidth = 3,
   className = "",
-}) => (
+}: SizedIconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -598,7 +607,7 @@ export const ChevronRight = ({
   </svg>
 );
 
-export const ChevronUpIcon = ({ className = "" }) => (
+export const ChevronUpIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="24"
@@ -615,7 +624,7 @@ export const ChevronUpIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const CrossIcon = ({ className = "" }) => (
+export const CrossIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
@@ -626,7 +635,7 @@ export const CrossIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const CheckmarkIcon = ({ className = "" }) => (
+export const CheckmarkIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 16 16"
@@ -641,7 +650,7 @@ export const CheckmarkIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const StarIcon = ({ className = "" }) => (
+export const StarIcon = ({ className = "" }: IconProps) => (
   <svg
     className={className}
     xmlns="http://www.w3.org/2000/svg"
@@ -658,7 +667,7 @@ export const StarIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const ProductHuntIcon = ({ className = "" }) => (
+export const ProductHuntIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 26.245 26.256"
@@ -675,7 +684,7 @@ export const ProductHuntIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const TwitterIcon = ({ className = "" }) => (
+export const TwitterIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-5 h-5 fill-[#00aCee] ${className}`}
     xmlns="http://www.w3.org/2000/svg"
@@ -685,7 +694,7 @@ export const TwitterIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const MenuIcon = ({ className = "" }) => (
+export const MenuIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
@@ -702,7 +711,7 @@ export const MenuIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const SupportIcon = ({ className = "" }) => (
+export const SupportIcon = ({ className = "" }: IconProps) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 20 20"
@@ -717,7 +726,7 @@ export const SupportIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const TextIcon = ({ className = "" }) => (
+export const TextIcon = ({ className = "" }: IconProps) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
@@ -734,7 +743,7 @@ export const TextIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const TrashIcon = ({ className = "" }) => (
+export const TrashIcon = ({ className = "" }: IconProps) => (
   <svg
     className={className}
     viewBox="0 0 24 24"
@@ -751,7 +760,7 @@ export const TrashIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const KebabMenuIcon = ({ className = "" }) => (
+export const KebabMenuIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-5 h-5 ${className}`}
     viewBox="0 0 24 24"
@@ -761,7 +770,7 @@ export const KebabMenuIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const SkipForwardIcon = ({ className = "" }) => (
+export const SkipForwardIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-6 h-6 ${className}`}
     viewBox="0 0 24 24"
@@ -777,7 +786,7 @@ export const SkipForwardIcon = ({ className = "" }) => (
   </svg>
 );
 
-export const SplitScreenIcon = ({ className = "" }) => (
+export const SplitScreenIcon = ({ className = "" }: IconProps) => (
   <svg
     className={`w-6 h-6 ${className}`}
     viewBox="0 0 24 24"

@@ -52,7 +52,8 @@ export const POST = withMiddleware(async (request: NextRequest) => {
     "tempmail.com",
     "10minutemail.com",
   ];
-  const userDomain = user.email.split("@")[1].toLowerCase();
+  const emailParts = user.email.split("@");
+  const userDomain = (emailParts[1] ?? "").toLowerCase();
   if (disposableDomains.includes(userDomain)) {
     return NextResponse.json(
       {

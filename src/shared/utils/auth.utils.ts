@@ -27,6 +27,11 @@ export async function withProtectedRoute(): Promise<User> {
       uuid: true,
       createdAt: true,
       updatedAt: true,
+      trialEndDate: true,
+      trialStartDate: true,
+      subscribedAt: true,
+      subscriptionEndDate: true,
+      paymentFingerprint: true,
     },
   });
 

@@ -1,6 +1,10 @@
 import React from "react";
 
-export const LeftQuote = ({ className }) => (
+interface QuoteProps {
+  className?: string;
+}
+
+export const LeftQuote = ({ className }: QuoteProps) => (
   <svg
     viewBox="0 0 773 1262"
     className={`w-8 fill-base-content/40 rotate-12 ${className}`}
