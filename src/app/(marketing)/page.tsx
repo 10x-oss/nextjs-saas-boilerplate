@@ -7,10 +7,18 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Your App Name — Tagline goes here",
   description: "A brief description of your app and what it does.",
+  alternates: {
+    canonical: "/",
+  },
   openGraph: {
     title: "Your App Name",
     description: "A brief description of your app and what it does.",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Your App Name",
+    description: "A brief description of your app and what it does.",
   },
 };
 

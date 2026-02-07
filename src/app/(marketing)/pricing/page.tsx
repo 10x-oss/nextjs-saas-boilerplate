@@ -6,6 +6,19 @@ export const revalidate = 3600;
 export const metadata: Metadata = {
   title: "Pricing — Simple, transparent pricing",
   description: "Start free, upgrade when you need more features.",
+  alternates: {
+    canonical: "/pricing",
+  },
+  openGraph: {
+    title: "Pricing — Simple, transparent pricing",
+    description: "Start free, upgrade when you need more features.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Pricing — Simple, transparent pricing",
+    description: "Start free, upgrade when you need more features.",
+  },
 };
 
 const plans = [
