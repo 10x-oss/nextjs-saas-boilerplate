@@ -108,8 +108,7 @@ export async function withValidation<T extends object>(
     return NextResponse.json(
       {
         error: "Validation error",
-        message:
-          error instanceof Error ? error.message : "An unexpected error occurred",
+        message: "An unexpected error occurred",
       },
       { status: 400 }
     );

@@ -73,8 +73,21 @@ export async function withRateLimit(
     return handler();
   }
 
-  // Use IP address as identifier, fall back to anonymous
-  const ip = request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "anonymous";
+  // Use IP address as identifier — prefer CF-Connecting-IP for Cloudflare deployments
+  const ip =
+    request.headers.get("cf-connecting-ip") ||
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    request.headers.get("x-real-ip") ||
+    "unknown";
+
+  // Reject requests with no identifiable IP to prevent sharing a single rate-limit bucket
+  if (ip === "unknown") {
+    return NextResponse.json(
+      { error: "Rate limit exceeded", message: "Unable to identify client." },
+      { status: 429 }
+    );
+  }
+
   const identifier = `${ip}:${limitType}`;
 
   try {

@@ -371,17 +371,12 @@ export const GET = withMiddleware(async (request: NextRequest) => {
       `[post-checkout] Set-Cookie header added. Redirecting user ${sessionUserId} to ${redirectUrl.pathname}`
     );
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("[post-checkout] Error processing Stripe callback:", {
       sessionId,
-      message: error.message,
-      stack: error.stack,
+      message: error instanceof Error ? error.message : "Unknown error",
+      stack: error instanceof Error ? error.stack : undefined,
     });
-    const errorMessage =
-      error instanceof Error
-        ? error.message
-        : "An unexpected error occurred during payment processing.";
-    // Avoid exposing sensitive details in the URL
     return NextResponse.redirect(
       new URL(
         `/error?message=Payment processing failed. Please contact support if the issue persists.`,
