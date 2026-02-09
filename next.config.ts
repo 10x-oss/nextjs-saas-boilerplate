@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 import path from "path";
 import withSerwistInit from "@serwist/next";
+import { withPostHogConfig } from "@posthog/nextjs-config";
 
 const withSerwist = withSerwistInit({
   swSrc: "src/sw.ts",
@@ -150,4 +151,20 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSerwist(nextConfig);
+// PostHog source map uploads — only enabled when credentials are available (e.g., Vercel builds)
+// This gives you symbolicated stack traces in PostHog error tracking
+const hasPostHogCredentials = process.env.POSTHOG_PERSONAL_API_KEY && process.env.POSTHOG_ENV_ID;
+
+const finalConfig = hasPostHogCredentials
+  ? withPostHogConfig(withSerwist(nextConfig), {
+      personalApiKey: process.env.POSTHOG_PERSONAL_API_KEY!,
+      envId: process.env.POSTHOG_ENV_ID!,
+      host: process.env.NEXT_PUBLIC_POSTHOG_HOST || "https://us.i.posthog.com",
+      sourcemaps: {
+        enabled: true,
+        deleteAfterUpload: true,
+      },
+    })
+  : withSerwist(nextConfig);
+
+export default finalConfig;

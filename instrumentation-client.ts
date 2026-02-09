@@ -25,6 +25,7 @@ export function initPosthog(): boolean {
     api_host: host,
     capture_pageview: false, // We handle this manually
     capture_pageleave: true,
+    capture_exceptions: true, // PostHog error tracking (GA) — replaces Sentry
     persistence: "localStorage+cookie",
     bootstrap: {
       distinctID: undefined,

@@ -1253,6 +1253,27 @@ module.exports = {
 
 **Trade-off:** External dependency. We make it optional with graceful fallback.
 
+### Why PostHog over Sentry for Error Tracking?
+
+**Decided:** Use PostHog error tracking instead of Sentry
+
+**Context:** PostHog error tracking became GA in April 2025 with 100K free exceptions/month. Previously, Sentry was the default choice.
+
+**Reasoning:**
+- PostHog error tracking is GA (not beta), battle-tested at scale
+- 100K free exceptions/month vs Sentry's 5K on free tier
+- Session replay + error tracking = better debugging context than Sentry breadcrumbs
+- One fewer vendor — analytics, session replay, feature flags, AND error tracking in one tool
+- `@posthog/nextjs-config` auto-uploads source maps during Vercel builds (symbolicated stack traces)
+- Vercel function logs cover server-side error visibility
+
+**Setup:**
+- `capture_exceptions: true` in PostHog client init (`instrumentation-client.ts`)
+- `@posthog/nextjs-config` wrapping `next.config` for source map uploads (conditional — only when `POSTHOG_PERSONAL_API_KEY` and `POSTHOG_ENV_ID` are set)
+- Server-side env vars: `POSTHOG_PERSONAL_API_KEY` (personal API key), `POSTHOG_ENV_ID` (project/environment ID)
+
+**Trade-off:** Sentry has deeper backend APM (transaction tracing, performance monitoring). For pre-PMF SaaS, PostHog's error tracking + Vercel logs is sufficient. Add Sentry later only if you need server-side APM.
+
 ### Why Zustand over Redux?
 
 **Decided:** Use Zustand for local state
