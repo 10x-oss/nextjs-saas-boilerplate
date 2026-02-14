@@ -1,4 +1,5 @@
-export async function register() {
-  // Instrumentation hook for Next.js
-  // Add any server-side instrumentation here if needed
-}
+import { createOnRequestError } from '@axiomhq/nextjs';
+import { logger } from '@/lib/axiom';
+
+export async function register() {}
+export const onRequestError = createOnRequestError(logger);

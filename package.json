@@ -19,6 +19,9 @@
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.969.0",
+    "@axiomhq/js": "^1.4.0",
+    "@axiomhq/logging": "^0.2.0",
+    "@axiomhq/nextjs": "^0.2.0",
     "@neondatabase/serverless": "^0.10.4",
     "@next-auth/prisma-adapter": "^1.0.7",
     "@posthog/nextjs-config": "^1.8.13",

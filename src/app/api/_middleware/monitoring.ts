@@ -1,20 +1,6 @@
 // src/app/api/_middleware/monitoring.ts
 import { NextResponse } from "next/server";
-
-/**
- * Simple logger for API monitoring.
- * Replace with your preferred logging library (pino, winston, etc.)
- */
-const logger = {
-  info: (data: Record<string, unknown>) => {
-    if (process.env.NODE_ENV === "development") {
-      console.log("[API]", JSON.stringify(data));
-    }
-  },
-  error: (data: Record<string, unknown>) => {
-    console.error("[API Error]", JSON.stringify(data));
-  },
-};
+import { logger } from "@/lib/axiom";
 
 export async function withMonitoring(
   request: Request,
@@ -28,7 +14,7 @@ export async function withMonitoring(
     const response = await handler();
     const duration = (Date.now() - startTime) / 1000; // seconds
 
-    logger.info({
+    logger.info("request completed", {
       requestId,
       path: route,
       method: request.method,
@@ -43,7 +29,7 @@ export async function withMonitoring(
       error instanceof Error ? error.message : "Unknown error";
     const errorStack = error instanceof Error ? error.stack : undefined;
 
-    logger.error({
+    logger.error("request failed", {
       requestId,
       path: route,
       method: request.method,
