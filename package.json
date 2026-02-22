@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "npm run clean && next dev",
     "build": "next build",
+    "ci:smoke": "node scripts/ci-smoke-guardrails.mjs",
     "lint": "ESLINT_USE_FLAT_CONFIG=false eslint src --ext .ts,.tsx,.js,.jsx",
     "type-check": "tsc --noEmit",
     "clean": "rm -rf .next",

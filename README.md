@@ -482,6 +482,8 @@ Use this checklist before your first production release:
   - PostHog `$exception` capture is enabled by default in this repo (`capture_exceptions: true`).
   - Axiom logger transport is configured and sending logs from server/runtime paths.
 - [ ] Deploy and validate runtime smoke checks:
+  - Run `npm run ci:smoke` locally before merge to validate checkout/webhook/header guardrails.
+  - Keep `.github/workflows/ci-smoke-guardrails.yml` enabled for push/PR validation.
   - Add required GitHub secrets for telemetry queries and Telegram notifications (details below).
   - Enable `.github/workflows/runtime-telemetry-alerts.yml` by setting repo variables.
   - Keep thresholds aligned with free-tier budgets and adjust with repository vars when needed.
@@ -527,6 +529,7 @@ This template expects `$exception` events from PostHog and Axiom error logs, mat
 |---------|-------------|
 | `npm run dev` | Start development server (clears `.next` cache first) |
 | `npm run build` | Production build |
+| `npm run ci:smoke` | Local CI smoke guardrails (checkout/webhook/header assertions) |
 | `npm run start` | Start production server |
 | `npm run lint` | ESLint check (includes boundary enforcement) |
 | `npm run type-check` | TypeScript validation |
